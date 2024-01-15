@@ -1,0 +1,13 @@
+runtime: go119
+
+handlers:
+- url: /.*
+  script: auto
+
+env_variables:
+  PROJECT_ID: 'hcl-healthcare-sschauhan'
+  SECRET_NAME_DB: 'database-credentials'  
+  SECRET_NAME_BASIC_AUTH: 'basic_auth_credentials'
+  #SCERET_MANAGER_SERVICE_ACCOUNT: 'hcl-healthcare-schauhan.json'
+  #FIREBASE_CREDENTIALS_PATH: 'firebase-service-account.json'
+

@@ -1,0 +1,270 @@
+swagger: '2.0'
+info:
+  title: doctor-appointment-manager
+  version: '1.0.0'
+host: "hcl-healthcare-sschauhan.appspot.com"
+schemes:
+  - "https"
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: key
+    in: query
+paths:
+  /doctors:
+    get:
+      summary: Search doctors
+      operationId: searchDoctors
+      security:
+        - api_key: []
+      parameters:
+        - name: center_id
+          in: query
+          required: true
+          type: integer
+        - name: specialization_id
+          in: query
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property1: 
+                      type: string
+                    property2: 
+                      type: integer
+                    # Add more properties as needed
+
+  /center-locations:
+    get:
+      summary: Get all center locations
+      operationId: getAllCenterLocations
+      security:
+        - api_key: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property1: 
+                      type: string
+                    property2: 
+                      type: integer
+                    # Add more properties as needed
+
+  /specializations:
+    get:
+      summary: Get all specializations
+      operationId: getAllSpecializations
+      security:
+        - api_key: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property1: 
+                      type: string
+                    property2: 
+                      type: integer
+                    # Add more properties as needed
+
+  /booked-appointments:
+    get:
+      summary: Get booked appointments
+      operationId: getBookedAppointments
+      security:
+        - api_key: []
+      parameters:
+        - name: patient_id
+          in: query
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property1: 
+                      type: string
+                    property2: 
+                      type: integer
+                    # Add more properties as needed
+
+  /login:
+    post:
+      summary: Login
+      operationId: loginUser
+      security:
+        - api_key: []
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+
+  /patients/{patient_id}:
+    post:
+      summary: Update patient
+      operationId: updatePatient
+      security:
+        - api_key: []
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          type: integer
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              firstname:
+                type: string
+              lastname:
+                type: string
+              email:
+                type: string
+              phonenumber:
+                type: string
+              employeecode:
+                type: string
+              hclemail:
+                type: string
+              password:
+                type: string
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+
+  /book-appointment:
+    post:
+      summary: Book appointment
+      operationId: bookAppointment
+      security:
+        - api_key: []
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              patient_id:
+                type: integer
+              doctor_id:
+                type: integer
+              appointment_date:
+                type: string
+              appointment_time:
+                type: string
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        '400':
+          description: Error response (e.g., slot not available)
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+
+  /cancel-appointment:
+    post:
+      summary: Cancel appointment
+      operationId: cancelAppointment
+      security:
+        - api_key: []
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              patient_id:
+                type: integer
+              appointment_id:
+                type: integer
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        '400':
+          description: Error response (e.g., invalid appointment id)
+          schema:
+            type: object
+            properties:
+              error:
+                type: string

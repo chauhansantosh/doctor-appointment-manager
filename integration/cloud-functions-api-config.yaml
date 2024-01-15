@@ -1,0 +1,46 @@
+swagger: '2.0'
+info:
+  title: CloudFunctionAPI
+  version: 1.0.0
+host: "asia-south2-hcl-healthcare-sschauhan.cloudfunctions.net"
+schemes:
+  - https
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: key
+    in: query
+paths:
+  /send-message:
+    post:
+      operationId: sendMessage
+      security:
+        - api_key: []
+      x-google-backend:
+        address: https://asia-south2-hcl-healthcare-sschauhan.cloudfunctions.net/send-message
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              device_token:
+                type: string
+              title:
+                type: string
+              message:
+                type: string
+            required:
+              - device_token
+              - title
+              - message
+      responses:
+        '200':
+          description: Success response
+          schema:
+            type: object
