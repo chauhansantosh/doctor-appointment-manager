@@ -4,6 +4,8 @@ package main
 
 import (
 	"net/http"
+	"os"
+	"strings"
 
 	"github.com/chauhansantosh/doctor-appointment-manager/db"
 	"github.com/chauhansantosh/doctor-appointment-manager/handler"
@@ -19,11 +21,16 @@ func main() {
 	// Create a new Gin router
 	router := gin.Default()
 
+	// Read configuration from environment variables
+	allowedOrigins := os.Getenv("CORS_ALLOW_ORIGINS")
+	allowedMethods := os.Getenv("CORS_ALLOW_METHODS")
+	allowedHeaders := os.Getenv("CORS_ALLOW_HEADERS")
+
 	// Use CORS middleware
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://localhost:3000"} // Replace with your frontend URL
-	config.AllowMethods = []string{"GET", "POST"}           // Adjust methods as needed
-	config.AllowHeaders = append(config.AllowHeaders, "Authorization")
+	config.AllowOrigins = strings.Split(allowedOrigins, ",")
+	config.AllowMethods = strings.Split(allowedMethods, ",")
+	config.AllowHeaders = strings.Split(allowedHeaders, ",")
 	router.Use(cors.New(config))
 
 	// Define routes
@@ -43,7 +50,7 @@ func main() {
 	// Define the GET endpoint for fetching all specializations
 	router.GET("/specializations", handler.HandleGetAllSpecializations)
 	router.GET("/available-time-slots", handler.HandleGetAvailableSlots)
-	router.POST("/patients/:patient_id", handler.HandleUpdatePatientDetails)
+	router.POST("/update-patient", handler.HandleUpdatePatientDetails)
 	router.GET("/booked-appointments", handler.HandleGetBookedAppointments)
 
 	// Run the server

@@ -1,13 +1,17 @@
 runtime: go119
+#env: flex  # Specifies the flexible environment
 
 handlers:
 - url: /.*
-  script: auto
+  script: _go_app
+  secure: always
 
 env_variables:
+  CORS_ALLOW_ORIGINS: http://localhost:3000,https://frontend-dot-hcl-healthcare-sschauhan.el.r.appspot.com
+  CORS_ALLOW_METHODS: GET,POST,OPTIONS
+  CORS_ALLOW_HEADERS: Content-Type,Authorization,x-api-key
   PROJECT_ID: 'hcl-healthcare-sschauhan'
   SECRET_NAME_DB: 'database-credentials'  
   SECRET_NAME_BASIC_AUTH: 'basic_auth_credentials'
-  #SCERET_MANAGER_SERVICE_ACCOUNT: 'hcl-healthcare-schauhan.json'
-  #FIREBASE_CREDENTIALS_PATH: 'firebase-service-account.json'
+  
 

@@ -92,25 +92,25 @@ func HandleAppointmentBooking(c *gin.Context) {
 	// Check the availability of the selected doctor at the specified date and time
 	if util.IsAppointmentAvailable(appointmentRequest.DoctorID, appointmentRequest.AppointmentDate, appointmentRequest.AppointmentTime) {
 
-		// Fetch the device token for the patient
+		/* // Fetch the device token for the patient
 		deviceToken, err := util.FetchDeviceToken(appointmentRequest.PatientID)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch device token"})
 			return
-		}
+		} */
 		// If available, create a new record in the BookedAppointments table
 		bookedAppointment, err := util.BookAppointment(appointmentRequest)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to book appointment"})
 			return
 		}
-		log.Printf("deviceToken: %v", deviceToken)
+		/* log.Printf("deviceToken: %v", deviceToken)
 		// Send FCM notification to the patient
 		err = util.SendAppointmentFCMNotification(deviceToken, "Appointment Booking", "Your appointment is booked!")
 		if err != nil {
 			// Handle FCM notification error (log or return an error)
 			log.Printf("Error sending FCM notification for appointment booking: %v", err)
-		}
+		} */
 		// Return the booked appointment details
 		c.JSON(http.StatusOK, bookedAppointment)
 	} else {
@@ -135,25 +135,25 @@ func HandleAppointmentCancellation(c *gin.Context) {
 		return
 	}
 
-	// Fetch the device token for the patient
+	/* // Fetch the device token for the patient
 	deviceToken, err := util.FetchDeviceToken(cancellationRequest.PatientId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch device token"})
 		return
 	}
-
+ */
 	// Cancel the appointment
 	if err := util.CancelAppointment(cancellationRequest.AppointmentID); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to cancel appointment"})
 		return
 	}
 
-	// Send FCM notification to the patient
+	/* // Send FCM notification to the patient
 	err = util.SendAppointmentFCMNotification(deviceToken, "Appointment Cancellation", "Your appointment is cancelled!")
 	if err != nil {
 		// Handle FCM notification error (log or return an error)
 		log.Printf("Error sending FCM notification for appointment booking: %v", err)
-	}
+	} */
 
 	// Return a success message
 	c.JSON(http.StatusOK, gin.H{"message": "Appointment cancellation successful"})
@@ -211,8 +211,13 @@ func HandleGetAvailableSlots(c *gin.Context) {
 func HandleUpdatePatientDetails(c *gin.Context) {
 	var request structure.PatientUpdateRequest
 
-	// Extract patient ID from the URL parameters
-	patientID, err := strconv.Atoi(c.Param("patient_id"))
+	patientIdStr := c.Query("patient_id")
+	if patientIdStr == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "patient_id (query param) is required."})
+		return
+	}
+	// Extract patient ID from the query parameters
+	patientID, err := strconv.Atoi(c.Query("patient_id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid patient ID"})
 		return
@@ -249,6 +254,7 @@ func HandleUpdatePatientDetails(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"success": true, "message": "Patient details updated successfully"})
 }
 
+// @Get /booked-appointments
 func HandleGetBookedAppointments(c *gin.Context) {
 	// Retrieve query parameters
 	patientIdStr := c.Query("patient_id")

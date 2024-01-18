@@ -3,6 +3,9 @@ info:
   title: CloudFunctionAPI
   version: 1.0.0
 host: "asia-south2-hcl-healthcare-sschauhan.cloudfunctions.net"
+x-google-endpoints:
+- name: https://my-api-gateway-cvai9ad9.an.gateway.dev
+  allowCors: True
 schemes:
   - https
 securityDefinitions:
@@ -44,3 +47,23 @@ paths:
           description: Success response
           schema:
             type: object
+    options:
+      summary: CORS support
+      operationId: sendMessageOptions
+      x-google-backend:
+        address: https://asia-south2-hcl-healthcare-sschauhan.cloudfunctions.net/send-message
+      description: |
+        Handles CORS preflight requests for /send-message.
+      responses:
+        '204':
+          description: CORS preflight response.
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: "http://localhost:3000"
+            Access-Control-Allow-Methods:
+              type: string
+              default: "POST, OPTIONS"
+            Access-Control-Allow-Headers:
+              type: string
+              default: "Content-Type, x-api-key"

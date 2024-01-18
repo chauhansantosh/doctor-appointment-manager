@@ -1,0 +1,491 @@
+swagger: '2.0'
+info:
+  title: doctor-appointment-manager
+  version: '1.0.0'
+host: "hcl-healthcare-sschauhan.el.r.appspot.com"
+x-google-endpoints:
+- name: https://doctor-appointment-gateway-cvai9ad9.an.gateway.dev
+  allowCors: True
+schemes:
+  - "https"
+securityDefinitions:
+  # Basic authentication with an API key.
+  api_key:
+    type: "apiKey"
+    name: "key"
+    in: "query"
+paths:
+  /doctors:
+    get:
+      summary: Search doctors
+      operationId: searchDoctors
+      security:
+        - api_key: []
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/doctors
+      parameters:
+        - name: center_id
+          in: query
+          required: true
+          type: integer
+        - name: specialization_id
+          in: query
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property1: 
+                      type: string
+                    property2: 
+                      type: integer
+                    # Add more properties as needed
+    options:
+      summary: CORS support
+      operationId: searchDoctorsOptions
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/doctors
+      description: |
+        Handles CORS preflight requests for /doctors.
+      responses:
+        '204':
+          description: CORS preflight response.
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: "http://localhost:3000"
+            Access-Control-Allow-Methods:
+              type: string
+              default: "GET, POST, OPTIONS"
+            Access-Control-Allow-Headers:
+              type: string
+              default: "Content-Type, x-api-key"
+
+  /center-locations:
+    get:
+      summary: Get all center locations
+      operationId: getAllCenterLocations
+      security:
+        - api_key: []
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/center-locations
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property1: 
+                      type: string
+                    property2: 
+                      type: integer
+                    # Add more properties as needed
+    options:
+      summary: CORS support
+      operationId: getAllCenterLocationsOptions
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/center-locations
+      description: |
+        Handles CORS preflight requests for /center-locations.
+      responses:
+        '204':
+          description: CORS preflight response.
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: "http://localhost:3000"
+            Access-Control-Allow-Methods:
+              type: string
+              default: "GET, POST, OPTIONS"
+            Access-Control-Allow-Headers:
+              type: string
+              default: "Content-Type, x-api-key"
+
+  /specializations:
+    get:
+      summary: Get all specializations
+      operationId: getAllSpecializations
+      security:
+        - api_key: []
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/specializations
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property1: 
+                      type: string
+                    property2: 
+                      type: integer
+                    # Add more properties as needed
+    options:
+      summary: CORS support
+      operationId: getAllSpecializationsOptions
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/specializations
+      description: |
+        Handles CORS preflight requests for /specializations.
+      responses:
+        '204':
+          description: CORS preflight response.
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: "http://localhost:3000"
+            Access-Control-Allow-Methods:
+              type: string
+              default: "GET, POST, OPTIONS"
+            Access-Control-Allow-Headers:
+              type: string
+              default: "Content-Type, x-api-key"
+  /booked-appointments:
+    get:
+      summary: Get booked appointments
+      operationId: getBookedAppointments
+      security:
+        - api_key: []
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/booked-appointments
+      parameters:
+        - name: patient_id
+          in: query
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property1: 
+                      type: string
+                    property2: 
+                      type: integer
+                    # Add more properties as needed
+    options:
+      summary: CORS support
+      operationId: getBookedAppointmentsOptions
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/booked-appointments
+      description: |
+        Handles CORS preflight requests for /booked-appointments.
+      responses:
+        '204':
+          description: CORS preflight response.
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: "http://localhost:3000"
+            Access-Control-Allow-Methods:
+              type: string
+              default: "GET, POST, OPTIONS"
+            Access-Control-Allow-Headers:
+              type: string
+              default: "Content-Type, x-api-key"
+  /login:
+    post:
+      summary: Login
+      operationId: loginUser
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/login
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+    options:
+      summary: CORS support
+      operationId: loginUserOptions
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/login
+      description: |
+        Handles CORS preflight requests for /login.
+      responses:
+        '204':
+          description: CORS preflight response.
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: "http://localhost:3000"
+            Access-Control-Allow-Methods:
+              type: string
+              default: "GET, POST, OPTIONS"
+            Access-Control-Allow-Headers:
+              type: string
+              default: "Content-Type, x-api-key"
+  /update-patient:
+    post:
+      summary: Update patient
+      operationId: updatePatient
+      security:
+        - api_key: []
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/update-patient
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: patient_id
+          in: query
+          required: true
+          type: integer
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              firstname:
+                type: string
+              lastname:
+                type: string
+              email:
+                type: string
+              phonenumber:
+                type: string
+              employeecode:
+                type: string
+              hclemail:
+                type: string
+              password:
+                type: string
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    options:
+      summary: CORS support
+      operationId: updatePatientOptions
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/update-patient
+      description: |
+        Handles CORS preflight requests for /update-patient.
+      responses:
+        '204':
+          description: CORS preflight response.
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: "http://localhost:3000"
+            Access-Control-Allow-Methods:
+              type: string
+              default: "GET, POST, OPTIONS"
+            Access-Control-Allow-Headers: 
+              type: string
+              default: "Content-Type, x-api-key"
+  /book-appointment:
+    post:
+      summary: Book appointment
+      operationId: bookAppointment
+      security:
+        - api_key: []
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/book-appointment
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              patient_id:
+                type: integer
+              doctor_id:
+                type: integer
+              appointment_date:
+                type: string
+              appointment_time:
+                type: string
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        '400':
+          description: Error response (e.g., slot not available)
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    options:
+      summary: CORS support
+      operationId: bookAppointmentOptions
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/book-appointment
+      description: |
+        Handles CORS preflight requests for /book-appointment.
+      responses:
+        '204':
+          description: CORS preflight response.
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: "http://localhost:3000"
+            Access-Control-Allow-Methods:
+              type: string
+              default: "GET, POST, OPTIONS"
+            Access-Control-Allow-Headers:
+              type: string
+              default: "Content-Type, x-api-key"
+  /cancel-appointment:
+    post:
+      summary: Cancel appointment
+      operationId: cancelAppointment
+      security:
+        - api_key: []
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/cancel-appointment
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              patient_id:
+                type: integer
+              appointment_id:
+                type: integer
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        '400':
+          description: Error response (e.g., invalid appointment id)
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    options:
+      summary: CORS support
+      operationId: cancelAppointmentOptions
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/cancel-appointment
+      description: |
+        Handles CORS preflight requests for /cancel-appointment.
+      responses:
+        '204':
+          description: CORS preflight response.
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: "http://localhost:3000"
+            Access-Control-Allow-Methods:
+              type: string
+              default: "GET, POST, OPTIONS"
+            Access-Control-Allow-Headers:
+              type: string
+              default: "Content-Type, x-api-key"
+  /available-time-slots:
+    get:
+      summary: get avaiable time slots
+      operationId: getTimeSlots
+      security:
+        - api_key: []
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/available-time-slots
+      parameters:
+        - name: doctor_id
+          in: query
+          required: true
+          type: integer        
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    property1: 
+                      type: string
+                    property2: 
+                      type: integer
+    options:
+      summary: CORS support
+      operationId: getTimeSlotsOptions
+      x-google-backend:
+        address: https://hcl-healthcare-sschauhan.el.r.appspot.com/available-time-slots
+      description: |
+        Handles CORS preflight requests for /available-time-slots.
+      responses:
+        '204':
+          description: CORS preflight response.
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: "http://localhost:3000"
+            Access-Control-Allow-Methods:
+              type: string
+              default: "GET, POST, OPTIONS"
+            Access-Control-Allow-Headers:
+              type: string
+              default: "Content-Type, x-api-key"
