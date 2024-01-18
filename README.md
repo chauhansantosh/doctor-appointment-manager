@@ -170,7 +170,7 @@ System for Booking Doctor’s Appointment
 >```
 >/booked-appointments?patient_id=1
 >```
-### Query Params
+##### Query Params
 
 |Param|value|
 |---|---|
@@ -198,7 +198,7 @@ System for Booking Doctor’s Appointment
 >```
 >/available-time-slots?doctor_id=1
 >```
-### Query Params
+##### Query Params
 
 |Param|value|
 |---|---|
@@ -265,7 +265,7 @@ System for Booking Doctor’s Appointment
 }
 ```
 
-### Query Params
+##### Query Params
 
 |Param|value|
 |---|---|
@@ -392,7 +392,7 @@ System for Booking Doctor’s Appointment
 >```
 >https://my-api-gateway-cvai9ad9.an.gateway.dev/send-message
 >```
-### Headers
+##### Headers
 
 |Content-Type|Value|
 |---|---|
