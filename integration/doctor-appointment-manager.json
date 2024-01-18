@@ -8,21 +8,9 @@
 	"item": [
 		{
 			"name": "search doctors",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
 					"raw": "{{host}}/doctors?center_id=1&specialization_id=1",
 					"host": [
@@ -47,9 +35,21 @@
 		},
 		{
 			"name": "get all center-locations",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "{{host}}/center-locations",
 					"host": [
@@ -64,9 +64,21 @@
 		},
 		{
 			"name": "get all specializations",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "{{host}}/specializations",
 					"host": [
@@ -95,6 +107,29 @@
 					"query": [
 						{
 							"key": "patient_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get available slots",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/available-time-slots?doctor_id=1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"available-time-slots"
+					],
+					"query": [
+						{
+							"key": "doctor_id",
 							"value": "1"
 						}
 					]
@@ -143,13 +178,18 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/patients/1",
+					"raw": "{{host}}/update-patient?patient_id=1",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"patients",
-						"1"
+						"update-patient"
+					],
+					"query": [
+						{
+							"key": "patient_id",
+							"value": "1"
+						}
 					]
 				}
 			},
@@ -240,7 +280,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"patient_id\": 1,\r\n    \"appointment_id\": 18\r\n}",
+					"raw": "{\r\n    \"database_user\": \"schauhan\",\r\n    \"database_password\": \"schauhan\",\r\n    \"database_host\": \"/cloudsql/aspire-gcp-training:asia-south2:docapptmgrdbschauhan\",\r\n    \"database_name\": \"docapptmgrdb\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -258,6 +298,92 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "send-message gateway",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "AIzaSyBwbABRUUnLP0wVLBVdrBXZD7ApLx6ro4A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"device_token\": \"cwQsqc9QhjR7_yJnD3BJJh:APA91bGE4heDPHBNu5SfXlfkHv2kNSiDQjAzmLKJ5dWDRaj--uiRPBcguVR-2n40yQrGnNKibeb-wTmFqfPDqhh8iDz9VMecWAj_OkJEbYJisaZhz9I6wOPBegeTGoRaI8BxTOt51MWO\",\r\n    \"title\": \"test cloud function\",\r\n    \"message\": \"message sent successfully\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://my-api-gateway-cvai9ad9.an.gateway.dev/send-message",
+					"protocol": "https",
+					"host": [
+						"my-api-gateway-cvai9ad9",
+						"an",
+						"gateway",
+						"dev"
+					],
+					"path": [
+						"send-message"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "AIzaSyBwbABRUUnLP0wVLBVdrBXZD7ApLx6ro4A",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "x-api-key",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "AIzaSyCetge2t7cBqlK617Ag4EUghNTgRde7sh4",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

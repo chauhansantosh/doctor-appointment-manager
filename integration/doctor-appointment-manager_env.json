@@ -1,0 +1,15 @@
+{
+	"id": "9d4d7f7e-afe5-47d7-b5c8-40d5dbe0bf1d",
+	"name": "app-engine-api-gateway",
+	"values": [
+		{
+			"key": "host",
+			"value": "https://doctor-appointment-gateway-cvai9ad9.an.gateway.dev",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-01-18T10:11:16.797Z",
+	"_postman_exported_using": "Postman/10.22.2"
+}
