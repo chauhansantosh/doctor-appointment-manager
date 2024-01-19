@@ -309,7 +309,7 @@
 				"header": [
 					{
 						"key": "x-api-key",
-						"value": "AIzaSyBwbABRUUnLP0wVLBVdrBXZD7ApLx6ro4A",
+						"value": "your-api-key",
 						"type": "text"
 					}
 				],
@@ -333,13 +333,6 @@
 					],
 					"path": [
 						"send-message"
-					],
-					"query": [
-						{
-							"key": "key",
-							"value": "AIzaSyBwbABRUUnLP0wVLBVdrBXZD7ApLx6ro4A",
-							"disabled": true
-						}
 					]
 				}
 			},
@@ -361,7 +354,7 @@
 			},
 			{
 				"key": "value",
-				"value": "AIzaSyCetge2t7cBqlK617Ag4EUghNTgRde7sh4",
+				"value": "your-api-key",
 				"type": "string"
 			}
 		]
